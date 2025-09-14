@@ -145,3 +145,39 @@ require("cmake-tools").setup {
   cmake_virtual_text_support = true, -- Show the target related to current file using virtual text (at right corner)
   cmake_use_scratch_buffer = false, -- A buffer that shows what cmake-tools has done
 }
+
+
+local json = vim.fn.json_decode
+local uv = vim.loop
+
+local function read_cmake_presets()
+  local path = vim.fn.getcwd() .. "/CMakePresets.json"
+  local fd = uv.fs_open(path, "r", 438) -- 438 = 0o666
+  if not fd then return {} end
+  local stat = uv.fs_fstat(fd)
+  local data = uv.fs_read(fd, stat.size, 0)
+  uv.fs_close(fd)
+  if not data then return {} end
+  local ok, parsed = pcall(json, data)
+  if not ok then return {} end
+  local presets = {}
+  if parsed.configurePresets then
+    for _, p in ipairs(parsed.configurePresets) do
+      table.insert(presets, p.name)
+    end
+  end
+  return presets
+end
+
+vim.api.nvim_create_user_command("CMakeConfigurePreset", function()
+  local presets = read_cmake_presets()
+  if #presets == 0 then
+    print("No configure presets found in CMakePresets.json")
+    return
+  end
+  vim.ui.select(presets, { prompt = "Select CMake configure preset:" }, function(choice)
+    if choice then
+      vim.cmd("term cmake --preset " .. choice)
+    end
+  end)
+end, {})
