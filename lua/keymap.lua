@@ -3,6 +3,7 @@ vim.g.mapleader = " "
 
 local Terminal = require("toggleterm.terminal").Terminal
 local uv = vim.loop
+local harpoon = require("harpoon")
 
 local function yazi_picker()
   local tmp = vim.fn.tempname()
@@ -36,6 +37,37 @@ local function yazi_picker()
 
   t:toggle()
 end
+
+local function toggle_src_header()
+  local current = vim.api.nvim_buf_get_name(0)
+  local basename = vim.fn.fnamemodify(current, ":t:r") -- file name without extension
+  local ext = vim.fn.fnamemodify(current, ":e")
+
+  local target
+
+  if ext == "cpp" then
+    -- try same dir first
+    target = vim.fn.fnamemodify(current, ":h") .. "/" .. basename .. ".hpp"
+    if vim.fn.filereadable(target) == 0 then
+      -- fallback: replace src/ with include/
+      target = current:gsub("/src/.*$", "/include/" .. basename .. ".hpp")
+    end
+  elseif ext == "hpp" or ext == "h" then
+    target = current:gsub("/include/.*$", "/src/" .. basename .. ".cpp")
+    if vim.fn.filereadable(target) == 0 then
+      -- fallback: same dir
+      target = vim.fn.fnamemodify(current, ":h") .. "/" .. basename .. ".cpp"
+    end
+  end
+
+  if target then
+    vim.cmd("edit " .. target)
+  else
+    print("No matching source/header for " .. current)
+  end
+end
+
+vim.keymap.set("n", "<leader>hh", toggle_src_header, { desc = "Switch header/source" })
 
 -- random
 vim.keymap.set("n", "<leader>ge", ":Ex<CR>", { desc = "Navigation: Open File explorer" })
@@ -94,6 +126,7 @@ end, { desc = "LSP: toggle lsp inlay hints" })
 -- harpoon
 local harpoon_mark = require('harpoon.mark')
 local harpoon_ui = require('harpoon.ui')
+vim.keymap.set("n", "<leader>hh", toggle_src_header, { desc = "Harpoon: Toggle header/source" })
 vim.keymap.set('n', '<leader>ha', harpoon_mark.add_file, { desc = 'Harpoon: Add File' })
 vim.keymap.set('n', '<leader>hd', harpoon_mark.rm_file, { desc = 'Harpoon: Delete File' })
 vim.keymap.set('n', '<leader>hn', harpoon_ui.nav_next, { desc = 'Harpoon: Nav Next' })
