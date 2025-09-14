@@ -98,7 +98,8 @@ vim.keymap.set('n', '<leader>hut', vim.cmd.UndotreeToggle, { desc = "UndoTree: T
 
 -- cmake-tools
 local cmake_tools = require "cmake-tools"
-vim.keymap.set('n', '<F7>', ':CMakeBuild<CR>', { desc = "CMake: build" })
+vim.keymap.set('n', '<F7>', ':CMakeBuild<CR>', { desc = "CMake: Build" })
+vim.keymap.set('n', '<F6>', ':CMakeConfigurePreset<CR>', { desc = "CMake: Configure" })
 
 -- dap (debugging)
 local dap = require 'dap'
