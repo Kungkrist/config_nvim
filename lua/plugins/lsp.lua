@@ -46,14 +46,14 @@ local servers = {
 	},
 	gdscript = {},
 	clangd = {
-		settings = {
-			ClangdSwitchSourceHeader = {
-				function()
-					switch_source_header(0)
-				end,
-				description = 'Switch between source/header',
-			},
-		},
+		-- settings = {
+		-- 	ClangdSwitchSourceHeader = {
+		-- 		function()
+		-- 			switch_source_header(0)
+		-- 		end,
+		-- 		description = 'Switch between source/header',
+		-- 	},
+		-- },
 	},
 	pylsp = {},
 	cmake = {
