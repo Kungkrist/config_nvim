@@ -1,48 +1,44 @@
 -- general settings
 vim.g.mapleader = " "
 
-local Terminal = require("toggleterm.terminal").Terminal
-local uv = vim.loop
-local harpoon = require("harpoon")
-
 function _G.set_terminal_keymaps()
-  local opts = {buffer = 0}
-  vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
-  vim.keymap.set('t', 'jk', [[<C-\><C-n>]], opts)
-  vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
-  vim.keymap.set('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
-  vim.keymap.set('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
-  vim.keymap.set('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
-  vim.keymap.set('t', '<C-w>', [[<C-\><C-n><C-w>]], opts)
+	local opts = { buffer = 0 }
+	vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
+	vim.keymap.set('t', 'jk', [[<C-\><C-n>]], opts)
+	vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
+	vim.keymap.set('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
+	vim.keymap.set('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
+	vim.keymap.set('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
+	vim.keymap.set('t', '<C-w>', [[<C-\><C-n><C-w>]], opts)
 end
 
 local function toggle_src_header()
-  local current = vim.api.nvim_buf_get_name(0)
-  local basename = vim.fn.fnamemodify(current, ":t:r") -- file name without extension
-  local ext = vim.fn.fnamemodify(current, ":e")
+	local current = vim.api.nvim_buf_get_name(0)
+	local basename = vim.fn.fnamemodify(current, ":t:r") -- file name without extension
+	local ext = vim.fn.fnamemodify(current, ":e")
 
-  local target
+	local target
 
-  if ext == "cpp" then
-    -- try same dir first
-    target = vim.fn.fnamemodify(current, ":h") .. "/" .. basename .. ".hpp"
-    if vim.fn.filereadable(target) == 0 then
-      -- fallback: replace src/ with include/
-      target = current:gsub("/src/.*$", "/include/" .. basename .. ".hpp")
-    end
-  elseif ext == "hpp" or ext == "h" then
-    target = current:gsub("/include/.*$", "/src/" .. basename .. ".cpp")
-    if vim.fn.filereadable(target) == 0 then
-      -- fallback: same dir
-      target = vim.fn.fnamemodify(current, ":h") .. "/" .. basename .. ".cpp"
-    end
-  end
+	if ext == "cpp" then
+		-- try same dir first
+		target = vim.fn.fnamemodify(current, ":h") .. "/" .. basename .. ".hpp"
+		if vim.fn.filereadable(target) == 0 then
+			-- fallback: replace src/ with include/
+			target = current:gsub("/src/.*$", "/include/" .. basename .. ".hpp")
+		end
+	elseif ext == "hpp" or ext == "h" then
+		target = current:gsub("/include/.*$", "/src/" .. basename .. ".cpp")
+		if vim.fn.filereadable(target) == 0 then
+			-- fallback: same dir
+			target = vim.fn.fnamemodify(current, ":h") .. "/" .. basename .. ".cpp"
+		end
+	end
 
-  if target then
-    vim.cmd("edit " .. target)
-  else
-    print("No matching source/header for " .. current)
-  end
+	if target then
+		vim.cmd("edit " .. target)
+	else
+		print("No matching source/header for " .. current)
+	end
 end
 
 vim.keymap.set("n", "<leader>hh", toggle_src_header, { desc = "Switch header/source" })
@@ -54,6 +50,9 @@ vim.keymap.set("n", "<leader>bd", ":bdelete<CR>", { desc = "Buffer: Delete (bdel
 -- telescope / search
 local builtin = require('telescope.builtin')
 local telescope = require('telescope')
+local actions = require("telescope.actions")
+local action_state = require("telescope.actions.state")
+
 vim.keymap.set('n', '<leader>hm', telescope.extensions.harpoon.marks, { desc = "Telescope: Harpoon Marks" })
 vim.keymap.set('n', '<leader>tm', builtin.marks, { desc = "Telescope: Marks" })
 vim.keymap.set('n', '<leader>tr', builtin.registers, { desc = "Telescope: registers" })
@@ -63,14 +62,55 @@ vim.keymap.set('n', '<leader>tff', builtin.find_files, { desc = "Telescope: find
 vim.keymap.set('n', '<leader>tgf', builtin.git_files, { desc = "Telescope: find git files" })
 vim.keymap.set('n', '<leader>tkm', builtin.keymaps, { desc = "Telescope: keymaps" })
 vim.keymap.set('n', '<leader>tjl', builtin.jumplist, { desc = "Telescope: jumplist" })
+
+-- telescope / grep
 vim.keymap.set('n', '<leader>tlg', builtin.jumplist, { desc = "Telescope: live grep" })
 vim.keymap.set('n', '<leader>tgs', function()
 	builtin.grep_string({ search = vim.fn.input("grep > ") })
 end, { desc = "Telescope: grep string input" })
 
+-- telescope / git
+vim.keymap.set('n', '<leader>gs', builtin.git_stash, { desc = "Telescope: Git Stash" })
+vim.keymap.set('n', '<leader>gbb', builtin.git_branches, { desc = "Telescope: Branches" })
+vim.keymap.set("n", "<leader>gc", function()
+	builtin.git_commits({
+		attach_mappings = function(_, map)
+			map("i", "<CR>", function(prompt_bufnr)
+				local entry = action_state.get_selected_entry()
+				actions.close(prompt_bufnr)
+				vim.cmd("Gvdiffsplit " .. entry.value)
+			end)
+			map("n", "<CR>", function(prompt_bufnr)
+				local entry = action_state.get_selected_entry()
+				actions.close(prompt_bufnr)
+				vim.cmd("Gvdiffsplit " .. entry.value)
+			end)
+			return true
+		end,
+	})
+end, { desc = "Telescope: Git Commits with Diff" })
+
+vim.keymap.set("n", "<leader>gbc", function()
+	builtin.git_bcommits({
+		attach_mappings = function(_, map)
+			map("i", "<CR>", function(prompt_bufnr)
+				local entry = action_state.get_selected_entry()
+				actions.close(prompt_bufnr)
+				vim.cmd("Gvdiffsplit " .. entry.value)
+			end)
+			map("n", "<CR>", function(prompt_bufnr)
+				local entry = action_state.get_selected_entry()
+				actions.close(prompt_bufnr)
+				vim.cmd("Gvdiffsplit " .. entry.value)
+			end)
+			return true
+		end,
+	})
+end, { desc = "Telescope: Buffer Git Commits with Diff" })
+
 -- toggleterm
 local Terminal = require("toggleterm.terminal").Terminal
-local terminalTop = Terminal:new({cmd = "top", hidden = true})
+local terminalTop = Terminal:new({ cmd = "top", hidden = true })
 
 function _TOP_TERMINAL_TOGGLE()
 	terminalTop:toggle()
@@ -125,7 +165,7 @@ vim.keymap.set('n', '<leader>hd', harpoon_mark.rm_file, { desc = 'Harpoon: Delet
 vim.keymap.set('n', '<leader>hn', harpoon_ui.nav_next, { desc = 'Harpoon: Nav Next' })
 vim.keymap.set('n', '<leader>hp', harpoon_ui.nav_prev, { desc = 'Harpoon: Nav Pref' })
 for i = 1, 9 do
-  vim.keymap.set("n", "<leader>h"..i, function()
-    harpoon_ui.nav_file(i)
-  end, { desc = "Harpoon jump to mark "..i })
+	vim.keymap.set("n", "<leader>h" .. i, function()
+		harpoon_ui.nav_file(i)
+	end, { desc = "Harpoon jump to mark " .. i })
 end
