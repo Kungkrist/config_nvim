@@ -5,6 +5,7 @@ require("plugins/dap_ui")
 require("plugins/cmake_tools")
 require("plugins/lsp")
 require("plugins/harpoon")
+require("plugins/toggle_term")
 require("options")
 require("keymap")
 

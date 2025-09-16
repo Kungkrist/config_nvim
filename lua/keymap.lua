@@ -5,6 +5,17 @@ local Terminal = require("toggleterm.terminal").Terminal
 local uv = vim.loop
 local harpoon = require("harpoon")
 
+function _G.set_terminal_keymaps()
+  local opts = {buffer = 0}
+  vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
+  vim.keymap.set('t', 'jk', [[<C-\><C-n>]], opts)
+  vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
+  vim.keymap.set('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
+  vim.keymap.set('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
+  vim.keymap.set('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
+  vim.keymap.set('t', '<C-w>', [[<C-\><C-n><C-w>]], opts)
+end
+
 local function toggle_src_header()
   local current = vim.api.nvim_buf_get_name(0)
   local basename = vim.fn.fnamemodify(current, ":t:r") -- file name without extension
@@ -56,6 +67,18 @@ vim.keymap.set('n', '<leader>tlg', builtin.jumplist, { desc = "Telescope: live g
 vim.keymap.set('n', '<leader>tgs', function()
 	builtin.grep_string({ search = vim.fn.input("grep > ") })
 end, { desc = "Telescope: grep string input" })
+
+-- toggleterm
+local Terminal = require("toggleterm.terminal").Terminal
+local terminalTop = Terminal:new({cmd = "top", hidden = true})
+
+function _TOP_TERMINAL_TOGGLE()
+	terminalTop:toggle()
+end
+
+vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
+vim.keymap.set("n", "<C-§>", ":ToggleTerm<CR>", { desc = "ToggleTerm: Toggle Terminal" })
+vim.keymap.set("n", "<C-t>t", ":lua _TOP_TERMINAL_TOGGLE()<CR>", { desc = "ToggleTerm: Toggle Top Terminal" })
 
 -- yazi
 vim.keymap.set("n", "<leader>yc", ":Yazi<CR>", { desc = "Yazi: Open Current" })
