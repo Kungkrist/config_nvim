@@ -24,6 +24,14 @@ require("lazy").setup({
 		version = "*",
 		config = true
 	},
+	{
+		"mikavilpas/yazi.nvim",
+		version = "*", -- use the latest stable version
+		event = "VeryLazy",
+		dependencies = {
+			{ "nvim-lua/plenary.nvim", lazy = true },
+		}
+	},
 	{ "Civitasv/cmake-tools.nvim" },
 	{ "habamax/vim-godot" },
 	{ "ms-jpq/coq_nvim" },
@@ -33,17 +41,6 @@ require("lazy").setup({
 	{
 		"rcarriga/nvim-dap-ui",
 		dependencies = "mfussenegger/nvim-dap",
-	},
-	{
-		"jay-babu/mason-nvim-dap.nvim",
-		event = "VeryLazy",
-		dependencies = {
-			"williamboman/mason.nvim",
-			"mfussenegger/nvim-dap",
-		},
-		opts = {
-			handlers = {},
-		}
 	},
 	{ "mfussenegger/nvim-dap" },
 	{ "nvim-lua/plenary.nvim" },

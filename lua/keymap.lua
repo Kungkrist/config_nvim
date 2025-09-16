@@ -5,39 +5,6 @@ local Terminal = require("toggleterm.terminal").Terminal
 local uv = vim.loop
 local harpoon = require("harpoon")
 
-local function yazi_picker()
-  local tmp = vim.fn.tempname()
-
-  -- wrapper: run yazi writing chooser file, then cat that file so it's guaranteed to exist
-  local cmd = string.format([[bash -lc 'yazi --chooser-file=%q; if [ -f %q ]; then cat %q; fi']], tmp, tmp, tmp)
-
-  -- store terminal so it's not GC'd
-  local t = Terminal:new({
-    cmd = cmd,
-    direction = "float",
-    close_on_exit = true,
-    on_exit = function(_, exit_code)
-      -- small delay to ensure the file is flushed
-      vim.defer_fn(function()
-        local f = io.open(tmp, "r")
-        if f then
-          local path = f:read("*l")
-          f:close()
-          os.remove(tmp)
-          if path and #path > 0 then
-            -- schedule the edit back into the main loop
-            vim.schedule(function()
-              vim.cmd("edit " .. vim.fn.fnameescape(path))
-            end)
-          end
-        end
-      end, 20) -- 20ms
-    end,
-  })
-
-  t:toggle()
-end
-
 local function toggle_src_header()
   local current = vim.api.nvim_buf_get_name(0)
   local basename = vim.fn.fnamemodify(current, ":t:r") -- file name without extension
@@ -91,8 +58,10 @@ vim.keymap.set('n', '<leader>tgs', function()
 end, { desc = "Telescope: grep string input" })
 
 -- yazi
-vim.keymap.set("n", "<leader>y", yazi_picker, { noremap = true, silent = true })
-
+vim.keymap.set("n", "<leader>yc", ":Yazi<CR>", { desc = "Yazi: Open Current" })
+vim.keymap.set("n", "<leader>yw", ":Yazi cwd<CR>", { desc = "Yazi: Open Workspace" })
+vim.keymap.set("n", "<leader>yt", ":Yazi toggle<CR>", { desc = "Yazi: Resume Last" })
+--
 -- undotree
 vim.keymap.set('n', '<leader>hut', vim.cmd.UndotreeToggle, { desc = "UndoTree: Toggle Show/Hide" })
 

@@ -1,4 +1,5 @@
 require("plugins")
+require("plugins/yazi")
 require("plugins/dap_ui")
 require("plugins/cmake_tools")
 require("plugins/lsp")
