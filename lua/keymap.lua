@@ -1,16 +1,16 @@
 -- general settings
 vim.g.mapleader = " "
 
-function _G.set_terminal_keymaps()
-	local opts = { buffer = 0 }
-	vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
-	vim.keymap.set('t', 'jk', [[<C-\><C-n>]], opts)
-	vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
-	vim.keymap.set('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
-	vim.keymap.set('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
-	vim.keymap.set('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
-	vim.keymap.set('t', '<C-w>', [[<C-\><C-n><C-w>]], opts)
-end
+-- function _G.set_terminal_keymaps()
+-- 	local opts = { buffer = 0 }
+-- 	vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
+-- 	vim.keymap.set('t', 'jk', [[<C-\><C-n>]], opts)
+-- 	vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
+-- 	vim.keymap.set('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
+-- 	vim.keymap.set('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
+-- 	vim.keymap.set('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
+-- 	vim.keymap.set('t', '<C-w>', [[<C-\><C-n><C-w>]], opts)
+-- end
 
 local function toggle_src_header()
 	local current = vim.api.nvim_buf_get_name(0)
@@ -46,6 +46,16 @@ vim.keymap.set("n", "<leader>hh", toggle_src_header, { desc = "Switch header/sou
 -- random
 vim.keymap.set("n", "<leader>ge", ":Ex<CR>", { desc = "Navigation: Open File explorer" })
 vim.keymap.set("n", "<leader>bd", ":bdelete<CR>", { desc = "Buffer: Delete (bdelete)" })
+
+
+-- make <CR> trigger dapui 'open' (works even if setup was overridden)
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "dapui_*",
+  callback = function()
+    -- map <CR> to 'o' (recursive so it triggers dapui's open mapping)
+    vim.keymap.set("n", "<CR>", "o", { buffer = true, noremap = false, silent = true })
+  end,
+})
 
 -- telescope / search
 local builtin = require('telescope.builtin')
@@ -116,7 +126,7 @@ function _TOP_TERMINAL_TOGGLE()
 	terminalTop:toggle()
 end
 
-vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
+-- vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 vim.keymap.set("n", "<C-§>", ":ToggleTerm<CR>", { desc = "ToggleTerm: Toggle Terminal" })
 vim.keymap.set("n", "<C-t>t", ":lua _TOP_TERMINAL_TOGGLE()<CR>", { desc = "ToggleTerm: Toggle Top Terminal" })
 
@@ -169,3 +179,26 @@ for i = 1, 9 do
 		harpoon_ui.nav_file(i)
 	end, { desc = "Harpoon jump to mark " .. i })
 end
+
+-- rustaceanvim
+local bufnr = vim.api.nvim_get_current_buf()
+vim.keymap.set(
+  "n", 
+  "<leader>a", 
+  function()
+    vim.cmd.RustLsp('codeAction') -- supports rust-analyzer's grouping
+    -- or vim.lsp.buf.codeAction() if you don't want grouping.
+  end,
+  { silent = true, buffer = bufnr }
+)
+vim.keymap.set(
+  "n", 
+  "K",  -- Override Neovim's built-in hover keymap with rustaceanvim's hover actions
+  function()
+    vim.cmd.RustLsp({'hover', 'actions'})
+  end,
+  { silent = true, buffer = bufnr }
+)
+vim.keymap.set("n", "ga", function()
+  vim.cmd.RustLsp { "hover", "actions" }
+end, { buffer = bufnr })

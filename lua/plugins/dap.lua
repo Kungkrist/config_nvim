@@ -1,34 +1,53 @@
 local dap = require('dap')
 require('dap.ext.vscode')
 
-dap.adapters.codelldb = {
-	type = 'server',
-	port = "${port}",
-	executable = {
-		command = "/home/kungen/Documents/junk/codelldb/extension/adapter/codelldb", -- <- update this
-		args = { "--port", "${port}" },
+local rust_cfg = vim.g.rustaceanvim()  -- call your function to get paths
 
-		-- optional env if needed
-		-- env = {
-		--   LLDB_LIBRARY_PATH = "/path/to/lldb/lib" -- if liblldb.so is needed
-		-- }
-	}
-}
+-- Set the adapter from rustaceanvim
+dap.adapters.codelldb = rust_cfg.dap.adapter
 
-dap.configurations.rust = {
-	{
-		name = "Launch",
-		type = "codelldb",
-		request = "launch",
-		program = function()
-			vim.fn.system("cargo build")
-			return vim.fn.getcwd() .. "/target/debug/" .. vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
-		end,
-		cwd = "${workspaceFolder}",
-		stopOnEntry = false,
-		args = {},
-	},
-}
+-- dap.adapters.codelldb = {
+-- 	type = 'server',
+-- 	port = "${port}",
+-- 	executable = {
+-- 		command = "codelldb", -- <- update this
+-- 		args = { "--port", "${port}" },
+--
+-- 		-- optional env if needed
+-- 		-- env = {
+-- 		--   LLDB_LIBRARY_PATH = "/path/to/lldb/lib" -- if liblldb.so is needed
+-- 		-- }
+-- 	}
+-- }
+
+-- dap.configurations.rust = {
+--   {
+--     name = "Launch file",
+--     type = "codelldb",
+--     request = "launch",
+--     program = function()
+--       -- prompt for the executable or build default target
+--       return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+--     end,
+--     cwd = '${workspaceFolder}',
+--     stopOnEntry = false,
+--     args = {},  -- optional command-line args
+--   },
+-- }
+-- dap.configurations.rust = {
+-- 	{
+-- 		name = "Launch",
+-- 		type = "codelldb",
+-- 		request = "launch",
+-- 		program = function()
+-- 			vim.fn.system("cargo build")
+-- 			-- return vim.fn.getcwd() .. "/target/debug/" .. vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+-- 		end,
+-- 		cwd = "${workspaceFolder}",
+-- 		stopOnEntry = false,
+-- 		args = {},
+-- 	},
+-- }
 
 -- dap.adapters.cpp = {
 -- 	type = "clangd",
@@ -41,6 +60,11 @@ dap.configurations.rust = {
 --     stopOnEntry = false,
 --     args = {},
 -- }
+dap.adapters.rust = {
+    type = "executable",
+    command = "lldb-vscode",
+    name = "lldb"
+}
 
 dap.adapters.cpp = {
     type = "executable",

@@ -29,6 +29,11 @@ require("lazy").setup({
 		opts = {},
 	},
 	{
+		'mrcjkb/rustaceanvim',
+		version = '^6', -- Recommended
+		lazy = false, -- This plugin is already lazy
+	},
+	{
 		'akinsho/toggleterm.nvim',
 		version = "*",
 		config = true
@@ -50,6 +55,15 @@ require("lazy").setup({
 	{
 		"rcarriga/nvim-dap-ui",
 		dependencies = "mfussenegger/nvim-dap",
+		opts = {
+			mappings = {
+				expand = { "<2-LeftMouse>" }, -- only mouse expands
+				open   = "<CR>",    -- Enter opens file
+				remove = "d",
+				edit   = "e",
+				repl   = "r",
+			},
+		},
 	},
 	{ "mfussenegger/nvim-dap" },
 	{ "nvim-lua/plenary.nvim" },

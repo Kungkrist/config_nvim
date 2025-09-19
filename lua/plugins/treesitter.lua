@@ -1,6 +1,6 @@
 require 'nvim-treesitter.configs'.setup {
 	-- A list of parser names, or "all" (the listed parsers MUST always be installed)
-	ensure_installed = {"python", "qmljs", "javascript", "cpp", "cmake", "gdscript", "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", "rust", "python", "gdshader"  },
+	ensure_installed = {"toml", "python", "qmljs", "javascript", "cpp", "cmake", "gdscript", "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", "rust", "python", "gdshader"  },
 
 	modules = {},
 

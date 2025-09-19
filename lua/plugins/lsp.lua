@@ -1,5 +1,14 @@
 local lspconfig = require("lspconfig")
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
+local cmp = require('cmp')
+
+-- cmp.setup({
+-- 	mapping = {
+-- 		-- confirm selection with <C-Space> instead of <C-Y>
+-- 		['<C-Space>'] = cmp.mapping.confirm({ select = true }),
+-- 		-- don't include <C-Y> at all
+-- 	},
+-- })
 
 -- lsp
 local on_attach = function(_, bufnr)
@@ -23,20 +32,21 @@ local on_attach = function(_, bufnr)
 end
 
 local servers = {
-	rust_analyzer = {
-		settings = {
-
-			cargo = { allFeatures = true },
-			checkOnSave = { command = "clippy" },
-			enable = true,
-			typeHints = true,
-			chainingHints = true,
-			parameterHints = true,
-		}
-	},
+	-- rust_analyzer = {
+	-- 	settings = {
+	-- 		diagnostics = { enable = false },
+	-- 		assist = { importMergeBehavior = "last", importPrefix = "by_self" },
+	-- 		procMacro = { enable = true },
+	-- 		cargo = { allFeatures = true },
+	-- 		checkOnSave = { command = "clippy" },
+	-- 		enable = true,
+	-- 		typeHints = true,
+	-- 		chainingHints = true,
+	-- 		parameterHints = true,
+	-- 	}
+	-- },
 	lua_ls = {
 		settings = {
-
 			Lua = {
 				diagnostics = { globals = { "vim" } },
 				workspace = { library = vim.api.nvim_get_runtime_file("", true) },
@@ -46,14 +56,6 @@ local servers = {
 	},
 	gdscript = {},
 	clangd = {
-		-- settings = {
-		-- 	ClangdSwitchSourceHeader = {
-		-- 		function()
-		-- 			switch_source_header(0)
-		-- 		end,
-		-- 		description = 'Switch between source/header',
-		-- 	},
-		-- },
 	},
 	pylsp = {},
 	cmake = {
@@ -87,4 +89,30 @@ for name, config in pairs(servers) do
 			root_dir = config.root_dir,
 		})
 	end
+end
+
+vim.g.rustaceanvim = function()
+local this_os = vim.uv.os_uname().sysname;
+
+local install_path = vim.fn.stdpath("data") .. "/mason/packages/codelldb"
+local codelldb_path = install_path .. "/extension/adapter/codelldb"
+local liblldb_path = install_path .. "/extension/lldb/lib/liblldb"
+  -- The path is different on Windows
+  if this_os:find "Windows" then
+    codelldb_path = extension_path .. "adapter\\codelldb.exe"
+    liblldb_path = extension_path .. "lldb\\bin\\liblldb.dll"
+  else
+    -- The liblldb extension is .so for Linux and .dylib for MacOS
+    liblldb_path = liblldb_path .. (this_os == "Linux" and ".so" or ".dylib")
+  end
+
+  local cfg = require('rustaceanvim.config')
+  return {
+    dap = {
+      adapter = cfg.get_codelldb_adapter(codelldb_path, liblldb_path),
+    },
+  server = {
+    on_attach = on_attach
+	},
+  }
 end
