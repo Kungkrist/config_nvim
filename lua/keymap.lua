@@ -120,3 +120,24 @@ for i = 1, 9 do
 		harpoon_ui.nav_file(i)
 	end, { desc = "Harpoon jump to mark " .. i })
 end
+
+-- dap
+local dap = require("dap")
+vim.api.nvim_create_user_command("Breakpoint", "lua require'dap'.toggle_breakpoint()", {})
+vim.api.nvim_create_user_command("Continue", "lua require'dap'.continue()", {})
+vim.api.nvim_create_user_command("StepOver", "lua require'dap'.step_over()", {})
+vim.api.nvim_create_user_command("StepInto", "lua require'dap'.step_into()", {})
+vim.api.nvim_create_user_command("REPL", "lua require'dap'.repl.open()", {})
+
+vim.keymap.set('n', '<f5>', dap.continue, { desc = 'Dap: Start/Continue Debugging' })
+vim.keymap.set('n', '<f10>', dap.step_over, { desc = 'Dap: Step Over' })
+vim.keymap.set('n', '<f11>', dap.step_into, { desc = 'Dap: Step Into' })
+vim.keymap.set('n', '<f12>', dap.step_out, { desc = 'Dap: Step Out' })
+vim.keymap.set('n', '<F9>', dap.toggle_breakpoint, { desc = 'Dap: Toggle Breakpoint' })
+vim.keymap.set('n', '<leader>drl', function()
+	dap.run_last()
+end, { desc = 'run last debug session' })
+
+-- dapui
+local dapui = require("dapui")
+vim.keymap.set('n', '<leader>dtd', dapui.toggle, { desc = 'DapUI: Toggle' })
