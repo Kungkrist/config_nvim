@@ -14,14 +14,7 @@ return {
 			},
 		})
 
-		-- lsp.preset("recommended")
-		lsp.preset({
-			name = "minimal",
-			set_lsp_keymaps = true,
-			manage_nvim_cmp = true,
-			suggest_lsp_servers = false, -- disables auto Mason install
-		})
-
+		lsp.preset("recommended")
 		lsp.on_attach(function(client, bufnr)
 			lsp.default_keymaps({ buffer = bufnr })
 		end)
