@@ -26,8 +26,11 @@ return {
 				},
 			},
 		})
+		vim.lsp.config('cmake', {})
 
 		vim.lsp.enable('luals')
+		vim.lsp.enable('clangd')
+		vim.lsp.enable('cmake')
 	end
 }
 
