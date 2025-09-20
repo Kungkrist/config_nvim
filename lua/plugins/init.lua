@@ -10,6 +10,7 @@ return {
 	require("plugins.rustaceanvim"),
 	require("plugins.dap"),
 	require("plugins.dapui"),
+	require("plugins.cmp"),
 	require("plugins.cmake_tools"),
 	require("plugins.which_key")
 }
