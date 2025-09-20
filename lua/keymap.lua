@@ -32,6 +32,22 @@ vim.keymap.set("n", "gl", function()
 	end
 end, { desc = "LSP: Show warnings/errors on this line" })
 
+-- grug-far (search and replace)
+local grug_far = require("grug-far")
+vim.keymap.set("n", "SAC", function()
+	grug_far.open({
+		-- engine = 'astgrep',
+		transient = true,
+		prefills = { search = vim.fn.expand("<cword>") },
+	})
+end, { desc = "Find And Replace: Cursor All files" })
+vim.keymap.set("n", "SAF", function()
+	grug_far.open({
+		-- engine = 'ashtgrep',
+		transient = true,
+	})
+end, { desc = "Find And Replace: All files" })
+
 --- yazi
 vim.keymap.set("n", "<leader>yc", ":Yazi<CR>", { desc = "Yazi: Open Current" })
 vim.keymap.set("n", "<leader>yw", ":Yazi cwd<CR>", { desc = "Yazi: Open Workspace" })
@@ -39,6 +55,12 @@ vim.keymap.set("n", "<leader>yt", ":Yazi toggle<CR>", { desc = "Yazi: Resume Las
 
 -- undotree
 vim.keymap.set('n', '<leader>hut', vim.cmd.UndotreeToggle, { desc = "UndoTree: Toggle Show/Hide" })
+
+-- cmake
+vim.keymap.set("n", "<leader>cr", ":CMakeRun<CR>", { desc = "CMake: Run" })
+vim.keymap.set("n", "<F6>", ":CMakeGenerate<CR>", { desc = "CMake: Configure/Generate" })
+vim.keymap.set("n", "<F7>", ":CMakeBuild<CR>", { desc = "CMake: Build" })
+vim.keymap.set("n", "<leader>cscp", ":CMakeSelectConfigurePreset<CR>", { desc = "CMake: Select Configure Preset" })
 
 -- telescope / search
 local builtin = require('telescope.builtin')
