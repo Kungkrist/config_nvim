@@ -77,6 +77,13 @@ vim.keymap.set('n', '<leader>tff', builtin.find_files, { desc = "Telescope: find
 vim.keymap.set('n', '<leader>tgf', builtin.git_files, { desc = "Telescope: find git files" })
 vim.keymap.set('n', '<leader>tkm', builtin.keymaps, { desc = "Telescope: keymaps" })
 vim.keymap.set('n', '<leader>tjl', builtin.jumplist, { desc = "Telescope: jumplist" })
+vim.keymap.set('n', '<leader>tfaf', function()
+  builtin.find_files({
+    hidden = true,       -- include hidden files
+    no_ignore = true,    -- include gitignored files
+    follow = true,       -- follow symlinks
+  })
+end, { desc = "Telescope: find files including hidden/gitignored" })
 
 -- telescope / grep
 vim.keymap.set('n', '<leader>tlg', builtin.jumplist, { desc = "Telescope: live grep" })
