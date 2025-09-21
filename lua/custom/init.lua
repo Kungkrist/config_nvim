@@ -10,3 +10,5 @@ if vim.fn.filereadable(default_session) == 1 then
     print("Skipped loading default session")
   end
 end
+
+require("custom.tree")
