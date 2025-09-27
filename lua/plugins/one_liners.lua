@@ -39,4 +39,32 @@ return {
 			});
 		end
 	},
+	{
+		"hedyhli/outline.nvim",
+		lazy = true,
+		cmd = { "Outline", "OutlineOpen" },
+		opts = {
+			outline_window = {
+				-- open as right sidebar
+				focus_on_open = false,
+				split_command = "rightbelow vsplit",
+				show_numbers = true, -- real line numbers
+				show_relative_numbers = true,
+				width = 25,
+			},
+			outline_items = {
+				show_symbol_details = true,
+				show_symbol_lineno = true, -- show lineno in the outline
+				flatten_hierachy = true,
+			},
+			auto_preview = false, -- optional: prevents jumping while browsing
+			symbol_folding = {
+				autofold_depth = false,
+			},
+			preview_window = {
+				auto_preview = true,
+				open_hover_on_preview = true,
+			}
+		},
+	}
 }

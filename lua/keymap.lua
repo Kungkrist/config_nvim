@@ -32,6 +32,9 @@ vim.keymap.set("n", "gl", function()
 	end
 end, { desc = "LSP: Show warnings/errors on this line" })
 
+-- Outline
+vim.keymap.set("n", "<leader>at", ":Outline<CR>", { desc = "Outline: Toggle" })
+
 -- grug-far (search and replace)
 local grug_far = require("grug-far")
 vim.keymap.set("n", "SAC", function()
