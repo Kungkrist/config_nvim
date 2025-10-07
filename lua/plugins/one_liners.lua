@@ -3,8 +3,21 @@ return {
 		-- Color theme
 		"folke/tokyonight.nvim",
 		priority = 1000,
+		opts = {
+			transparent = true,
+			styles = {
+				sidebars = "transparent",
+				floats = "transparent",
+			},
+		},
 		config = function()
 			vim.cmd.colorscheme("tokyonight")
+			vim.cmd [[
+			  hi Normal guibg=NONE ctermbg=NONE
+			  hi NormalNC guibg=NONE ctermbg=NONE
+			  hi NormalFloat guibg=NONE ctermbg=NONE
+			  hi SignColumn guibg=NONE ctermbg=NONE
+			]]
 		end
 	},
 	{ "nvim-lua/plenary.nvim" },
