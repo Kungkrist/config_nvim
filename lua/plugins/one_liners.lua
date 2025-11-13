@@ -27,6 +27,11 @@ return {
 			require('lualine').setup()
 		end
 	},
+	{
+		"folke/todo-comments.nvim",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		opts = {}
+	},
 	{ "nvim-lua/plenary.nvim" },
 	{
 		-- Fuzzy finder for files, buffers, and more
