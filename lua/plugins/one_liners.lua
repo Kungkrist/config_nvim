@@ -11,13 +11,20 @@ return {
 			},
 		},
 		config = function()
-			vim.cmd.colorscheme("tokyonight")
+			vim.cmd.colorscheme("tokyonight-moon")
 			vim.cmd [[
 			  hi Normal guibg=NONE ctermbg=NONE
 			  hi NormalNC guibg=NONE ctermbg=NONE
 			  hi NormalFloat guibg=NONE ctermbg=NONE
 			  hi SignColumn guibg=NONE ctermbg=NONE
 			]]
+		end
+	},
+	{
+		'nvim-lualine/lualine.nvim',
+		dependencies = { 'nvim-tree/nvim-web-devicons' },
+		config = function()
+			require('lualine').setup()
 		end
 	},
 	{ "nvim-lua/plenary.nvim" },
