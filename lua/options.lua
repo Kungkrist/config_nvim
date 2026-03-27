@@ -16,7 +16,8 @@ vim.o.inccommand = 'split'
 vim.o.cursorline = true
 vim.o.scrolloff = 10
 vim.o.list = true
--- vim.o.termguicolors = true
+vim.o.termguicolors = true
+vim.opt.undofile = true
 
 vim.api.nvim_create_autocmd('TextYankPost', {
 	desc = 'Highlight when yanking (copying) text',
