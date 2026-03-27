@@ -1,7 +1,13 @@
+vim.o.shell = os.getenv("SHELL")
+vim.o.shellcmdflag = "-ic"  -- interactive + execute
+vim.o.shellquote = ""
+vim.o.shellxquote = ""
+
 vim.g.have_nerd_font = true
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.mouse = "a"
+vim.o.list = true
 vim.opt.termguicolors = true
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
@@ -10,7 +16,7 @@ vim.o.inccommand = 'split'
 vim.o.cursorline = true
 vim.o.scrolloff = 10
 vim.o.list = true
-vim.o.termguicolors = true
+-- vim.o.termguicolors = true
 
 vim.api.nvim_create_autocmd('TextYankPost', {
 	desc = 'Highlight when yanking (copying) text',

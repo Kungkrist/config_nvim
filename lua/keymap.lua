@@ -177,4 +177,8 @@ vim.keymap.set('n', '<leader>dtd', dapui.toggle, { desc = 'DapUI: Toggle' })
 -- floating terminal
 local terminal = require('custom.terminal')
 vim.keymap.set('n', '<leader>tt', terminal.toggle_floating_terminal, { desc = 'Terminal: Toggle floating terminal' })
-vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { desc = 'Terminal: Exit terminal mode' })
+-- vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { desc = 'Terminal: Exit terminal mode' })
+vim.keymap.set('t', '<A-Esc>', '<C-\\><C-n>', { desc = 'Terminal: Exit terminal mode' })
+
+-- Zen mode
+vim.keymap.set("n", "<leader>z", ":ZenMode<CR>", { desc = "ZenMode: Toggle" })
