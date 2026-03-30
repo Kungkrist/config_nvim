@@ -18,6 +18,8 @@ vim.o.scrolloff = 10
 vim.o.list = true
 vim.o.termguicolors = true
 vim.opt.undofile = true
+vim.opt.foldmethod = "indent"
+vim.opt.foldlevel = 99
 
 vim.api.nvim_create_autocmd('TextYankPost', {
 	desc = 'Highlight when yanking (copying) text',
