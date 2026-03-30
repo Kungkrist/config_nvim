@@ -9,6 +9,28 @@ return {
 		},
 	},
 	{
+		"nvim-telekasten/telekasten.nvim",
+		config = function()
+			local function get_notes_dir()
+				local cwd = vim.loop.cwd()
+
+				-- look for a project-specific marker
+				if vim.fn.filereadable(cwd .. "/.notes") == 1 then
+					return cwd .. "/notes"
+				end
+
+				-- fallback (global notes)
+				return vim.fn.expand("~/notes")
+			end
+
+			require("telekasten").setup({
+				home = get_notes_dir(),
+				follow_creates_nonexisting = true,
+				external_link_follow = true, -- Enable external file linking (default: true)
+			})
+		end
+	},
+	{
 		"folke/zen-mode.nvim",
 		opts = {
 			-- your configuration comes here

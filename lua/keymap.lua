@@ -81,11 +81,11 @@ vim.keymap.set('n', '<leader>tgf', builtin.git_files, { desc = "Telescope: find 
 vim.keymap.set('n', '<leader>tkm', builtin.keymaps, { desc = "Telescope: keymaps" })
 vim.keymap.set('n', '<leader>tjl', builtin.jumplist, { desc = "Telescope: jumplist" })
 vim.keymap.set('n', '<leader>tfaf', function()
-  builtin.find_files({
-    hidden = true,       -- include hidden files
-    no_ignore = true,    -- include gitignored files
-    follow = true,       -- follow symlinks
-  })
+	builtin.find_files({
+		hidden = true, -- include hidden files
+		no_ignore = true, -- include gitignored files
+		follow = true, -- follow symlinks
+	})
 end, { desc = "Telescope: find files including hidden/gitignored" })
 
 -- telescope / grep
@@ -182,3 +182,14 @@ vim.keymap.set('t', '<A-Esc>', '<C-\\><C-n>', { desc = 'Terminal: Exit terminal 
 
 -- Zen mode
 vim.keymap.set("n", "<leader>z", ":ZenMode<CR>", { desc = "ZenMode: Toggle" })
+
+--  Telekaster (note manager)
+vim.keymap.set("n", "gd", function()
+	local ft = vim.bo.filetype
+
+	if ft == "markdown" then
+		require("telekasten").follow_link()
+	else
+		vim.lsp.buf.definition()
+	end
+end)

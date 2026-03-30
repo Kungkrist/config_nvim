@@ -1,5 +1,6 @@
 {
   "LuaSnip": { "branch": "master", "commit": "dae4f5aaa3574bd0c2b9dd20fb9542a02c10471c" },
+  "ccc.nvim": { "branch": "main", "commit": "9d1a256e006decc574789dfc7d628ca11644d4c2" },
   "cmake-tools.nvim": { "branch": "master", "commit": "b3a5d4d3e889d0f8f0c94ccd910407c6ce466b25" },
   "cmp-nvim-lsp": { "branch": "main", "commit": "cbc7b02bb99fae35cb42f514762b89b5126651ef" },
   "grug-far.nvim": { "branch": "main", "commit": "dc4684e163971bb1f5bfb93fbd4bb3e892bf9b15" },
@@ -24,6 +25,7 @@
   "ripgrep": { "branch": "master", "commit": "4519153e5e461527f4bca45b042fff45c4ec6fb9" },
   "rustaceanvim": { "branch": "master", "commit": "88575b98bb9937fb9983ddec5e532b67e75ce677" },
   "solarized-osaka.nvim": { "branch": "main", "commit": "f0c2f0ba0bd56108d53c9bfae4bb28ff6c67bbdb" },
+  "telekasten.nvim": { "branch": "main", "commit": "760c7cdbbd0bb5337d11533bc09732223c752e41" },
   "telescope.nvim": { "branch": "master", "commit": "5255aa27c422de944791318024167ad5d40aad20" },
   "todo-comments.nvim": { "branch": "main", "commit": "31e3c38ce9b29781e4422fc0322eb0a21f4e8668" },
   "undotree": { "branch": "master", "commit": "6fa6b57cda8459e1e4b2ca34df702f55242f4e4d" },
