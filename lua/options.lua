@@ -9,8 +9,6 @@ vim.opt.relativenumber = true
 vim.opt.mouse = "a"
 vim.o.list = true
 vim.opt.termguicolors = true
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 vim.o.inccommand = 'split'
 vim.o.cursorline = true
@@ -20,6 +18,9 @@ vim.o.termguicolors = true
 vim.opt.undofile = true
 vim.opt.foldmethod = "indent"
 vim.opt.foldlevel = 99
+vim.opt.tabstop = 2
+vim.opt.expandtab = true
+vim.opt.shiftwidth = 2
 
 vim.api.nvim_create_autocmd('TextYankPost', {
 	desc = 'Highlight when yanking (copying) text',
