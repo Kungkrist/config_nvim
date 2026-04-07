@@ -123,7 +123,6 @@ return {
   },
   { 'tpope/vim-fugitive' }, -- Git plugin
   { "mbbill/undotree" },    -- Inspect undo history of files
-  { "BurntSushi/ripgrep" }, -- Used by telescope
   {
     'MeanderingProgrammer/render-markdown.nvim',
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
