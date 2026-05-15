@@ -1,24 +1,32 @@
 return {
-	"hrsh7th/nvim-cmp",
-	config = function()
-		local cmp = require("cmp")
-		local lsp = require("lsp-zero")
-		local cmp_select = { behavior = cmp.SelectBehavior.Select }
+  "hrsh7th/nvim-cmp",
+  dependencies = {
+    "hrsh7th/cmp-nvim-lsp",
+    "L3MON4D3/LuaSnip",
+  },
+  config = function()
+    local cmp = require("cmp")
+    local cmp_lsp = require("cmp_nvim_lsp")
 
-		cmp.setup({
-			mapping = {
-				["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
-				["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
-				["<CR>"] = cmp.mapping.confirm({ select = true }),
-				["<C-Space>"] = cmp.mapping.complete(),
-			},
-		})
+    cmp.setup({
+      snippet = {
+        expand = function(args)
+          require("luasnip").lsp_expand(args.body)
+        end,
+      },
+      mapping = {
+        ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+        ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+        ["<CR>"] = cmp.mapping.confirm({ select = true }),
+        ["<C-Space>"] = cmp.mapping.complete(),
+      },
+      sources = {
+        { name = "nvim_lsp" },
+      },
+    })
 
-		lsp.preset("recommended")
-		lsp.on_attach(function(client, bufnr)
-			lsp.default_keymaps({ buffer = bufnr })
-		end)
-
-		lsp.setup()
-	end
+    vim.lsp.config('*', {
+      capabilities = cmp_lsp.default_capabilities(),
+    })
+  end,
 }

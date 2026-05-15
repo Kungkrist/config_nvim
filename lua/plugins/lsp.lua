@@ -1,34 +1,58 @@
 return {
-	"VonHeikemen/lsp-zero.nvim",
-	branch = "v2.x",
-	dependencies = {
-	},
-	config = function()
-		vim.lsp.config('luals', {
-			cmd = { 'lua-language-server' },
-			filetypes = { 'lua' },
-			root_markers = { '.luarc.json', '.luarc.jsonc' },
-			settings = {
-				Lua = {
-					diagnostics = {
-						globals = { 'vim' }, -- Fix not found warning
-					},
-					workspace = {
-						library = vim.api.nvim_get_runtime_file("", true),
-					},
-					telemetry = { enable = false },
-				},
-			},
-		})
-		vim.lsp.config('cmake', {})
+  {
+    "neovim/nvim-lspconfig",
+  },
+  {
+    "williamboman/mason.nvim",
+    config = function()
+      require("mason").setup()
+    end,
+  },
+  {
+    "williamboman/mason-lspconfig.nvim",
+    config = function()
+      require("mason-lspconfig").setup({
+        ensure_installed = { "lua_ls", "clangd", "cmake" },
+      })
+    end,
+  },
+  {
+    "hrsh7th/nvim-cmp",
+  },
+  {
+    "hrsh7th/cmp-nvim-lsp",
+  },
+  {
+    "L3MON4D3/LuaSnip",
+  },
+  config = function()
+    -- Lua
+    vim.lsp.config('lua_ls', {
+      settings = {
+        Lua = {
+          diagnostics = {
+            globals = { 'vim' },
+          },
+          workspace = {
+            library = vim.api.nvim_get_runtime_file("", true),
+          },
+          telemetry = { enable = false },
+        },
+      },
+    })
 
-		vim.lsp.enable('luals')
-		vim.lsp.enable('clangd')
-		vim.lsp.enable('cmake')
-	end
-}
+    -- C/C++
+    vim.lsp.config('clangd', {})
 
--- https://vonheikemen.github.io/learn-nvim/feature/lsp-setup.html#lsp-defaults
+    -- CMake
+    vim.lsp.config('cmake', {})
+
+    -- Enable servers
+    vim.lsp.enable('lua_ls')
+    vim.lsp.enable('clangd')
+    vim.lsp.enable('cmake')
+  end
+} -- https://vonheikemen.github.io/learn-nvim/feature/lsp-setup.html#lsp-defaults
 -- The following built-in keymaps will use the active language server if possible.
 -- ctrl-]          -> go to definition
 -- gq              -> format selected text or text object
