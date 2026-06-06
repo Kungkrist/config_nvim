@@ -1,21 +1,11 @@
 return {
   {
-    "neovim/nvim-lspconfig",
-  },
-  {
     "williamboman/mason.nvim",
     config = function()
       require("mason").setup()
     end,
   },
-  {
-    "williamboman/mason-lspconfig.nvim",
-    config = function()
-      require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls", "clangd", "cmake" },
-      })
-    end,
-  },
+
   {
     "hrsh7th/nvim-cmp",
   },
@@ -25,47 +15,56 @@ return {
   {
     "L3MON4D3/LuaSnip",
   },
-  config = function()
-    -- Lua
-    vim.lsp.config('lua_ls', {
-      settings = {
-        Lua = {
-          diagnostics = {
-            globals = { 'vim' },
+
+  {
+    "neovim/nvim-lspconfig",
+    config = function()
+
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = 'fish',
+        callback = function()
+          vim.lsp.start({
+            name = 'fish-lsp',
+            cmd = { 'fish-lsp', 'start' },
+          })
+        end,
+      })
+
+      vim.lsp.config("lua_ls", {
+        settings = {
+          Lua = {
+            diagnostics = { globals = { "vim" } },
+            workspace = {
+              library = vim.api.nvim_get_runtime_file("", true),
+            },
           },
-          workspace = {
-            library = vim.api.nvim_get_runtime_file("", true),
-          },
-          telemetry = { enable = false },
         },
-      },
-    })
+      })
 
-    -- C/C++
-    vim.lsp.config('clangd', {})
+      vim.lsp.config("clangd", {
+        cmd = {
+          "clangd",
+          "--background-index",
+          "--clang-tidy",
+          "--query-driver=/nix/store/*clang*/bin/clang++"
+        },
+      })
+      -- vim.lsp.config("cmake", {
+      --   cmd = { "cmake-language-server" },
+      --   filetypes = { "cmake" },
+      --   root_markers = { "CMakeLists.txt" },
+      -- })
 
-    -- CMake
-    vim.lsp.config('cmake', {})
+      vim.lsp.config("actionlint", {
+        cmd = { "actionlint" },
+        filetypes = { "yaml" }
+      })
 
-    -- Enable servers
-    vim.lsp.enable('lua_ls')
-    vim.lsp.enable('clangd')
-    vim.lsp.enable('cmake')
-  end
-} -- https://vonheikemen.github.io/learn-nvim/feature/lsp-setup.html#lsp-defaults
--- The following built-in keymaps will use the active language server if possible.
--- ctrl-]          -> go to definition
--- gq              -> format selected text or text object
--- K               -> display documentation of the symbol under the cursor
--- ctrl-x + ctrl-o -> in insert mode, trigger code completion
-
--- neovim specific:
--- grn        -> renames all references of the symbol under the cursor
--- gra        -> list code actions available in the line under the cursor
--- grr        -> lists all the references of the symbol under the cursor
--- gri        -> lists all the implementations for the symbol under the cursor
--- gO         -> lists all symbols in the current buffer
--- ctrl-s     -> in insert mode, display function signature under the cursor
--- [d         -> jump to previous diagnostic in the current buffer
--- ]d         -> jump to next diagnostic in the current buffer
--- ctrl-w + d -> show error/warning message in the line under the cursor
+      vim.lsp.enable("lua_ls")
+      vim.lsp.enable("clangd")
+      vim.lsp.enable("cmake")
+      vim.lsp.enable("jsonls")
+      vim.lsp.enable("actionlint")
+    end,
+  },
+}

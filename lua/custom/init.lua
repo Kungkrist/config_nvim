@@ -12,3 +12,4 @@ if vim.fn.filereadable(default_session) == 1 then
 end
 
 require("custom.tree")
+
