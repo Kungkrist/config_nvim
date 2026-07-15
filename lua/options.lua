@@ -22,6 +22,12 @@ vim.opt.tabstop = 2
 vim.opt.expandtab = true
 vim.opt.shiftwidth = 2
 
+if vim.env.WRITING_MODE == "1" then
+  vim.opt.wrap = true
+  vim.opt.spell = true
+  vim.opt.linebreak = true
+end
+
 vim.api.nvim_create_autocmd('TextYankPost', {
 	desc = 'Highlight when yanking (copying) text',
 	group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),

@@ -46,7 +46,13 @@ return {
           "clangd",
           "--background-index",
           "--clang-tidy",
-          "--query-driver=/nix/store/*clang*/bin/clang++"
+          "--query-driver=/nix/store/*clang*/bin/*",
+
+          -- "--header-insertion=never",
+          -- "--query-driver=/nix/store/*clang*/bin/clang++",
+          -- "--query-driver=/nix/store/*/bin/*",
+          -- "--query-driver=**",
+          -- "--query-driver=/nix/store/*gcc-wrapper*/bin/g++,/nix/store/*gcc*/bin/g++",
         },
       })
       -- vim.lsp.config("cmake", {
