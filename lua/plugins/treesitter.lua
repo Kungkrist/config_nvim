@@ -1,32 +1,18 @@
 return {
-	{
-		"nvim-treesitter/nvim-treesitter",
-		build = ":TSUpdate",
-		lazy = false,
-		branch = "master",
-		config = function()
-			require 'nvim-treesitter.configs'.setup {
-				ensure_installed = {
-					"python", "qmljs", "javascript", "cpp", "cmake",
-					"gdscript", "c", "lua", "vim", "vimdoc",
-					"query", "markdown", "markdown_inline", "rust",
-					"gdshader"
-				},
-				sync_install = false,
-				auto_install = true,
-				ignore_install = { "javascript" },
-				highlight = {
-					enable = true,
-					disable = function(lang, buf)
-						local max_filesize = 100 * 1024
-						local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-						if ok and stats and stats.size > max_filesize then
-							return true
-						end
-					end,
-					additional_vim_regex_highlighting = false,
-				},
-			}
-		end,
-	},
+  {
+    'nvim-treesitter/nvim-treesitter',
+    lazy = false,
+    build = ':TSUpdate',
+    config = function()
+      local ts = require('nvim-treesitter')
+      ts.setup {
+        -- Directory to install parsers and queries to (prepended to `runtimepath` to have priority)
+        install_dir = vim.fn.stdpath('data') .. '/site'
+      }
+      ts.install({ "python", "qmljs", "javascript", "cpp", "cmake",
+        "gdscript", "c", "lua", "vim", "vimdoc",
+        "query", "markdown", "markdown_inline", "rust",
+        "gdshader", }):wait(300000) -- wait max. 5 minutes
+    end,
+  }
 }
