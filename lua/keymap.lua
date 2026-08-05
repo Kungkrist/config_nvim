@@ -71,7 +71,6 @@ local telescope = require('telescope')
 local actions = require("telescope.actions")
 local action_state = require("telescope.actions.state")
 
-vim.keymap.set('n', '<leader>hm', telescope.extensions.harpoon.marks, { desc = "Telescope: Harpoon Marks" })
 vim.keymap.set('n', '<leader>tm', builtin.marks, { desc = "Telescope: Marks" })
 vim.keymap.set('n', '<leader>tr', builtin.registers, { desc = "Telescope: registers" })
 vim.keymap.set('n', '<leader>tb', builtin.buffers, { desc = "Telescope: buffers" })
@@ -139,19 +138,6 @@ vim.keymap.set("n", "<leader>lih", function()
   local enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr })
   vim.lsp.inlay_hint.enable(not enabled, { bufnr = bufnr })
 end, { desc = "LSP: toggle lsp inlay hints" })
-
--- harpoon
-local harpoon_mark = require('harpoon.mark')
-local harpoon_ui = require('harpoon.ui')
-vim.keymap.set('n', '<leader>ha', harpoon_mark.add_file, { desc = 'Harpoon: Add File' })
-vim.keymap.set('n', '<leader>hd', harpoon_mark.rm_file, { desc = 'Harpoon: Delete File' })
-vim.keymap.set('n', '<leader>hn', harpoon_ui.nav_next, { desc = 'Harpoon: Nav Next' })
-vim.keymap.set('n', '<leader>hp', harpoon_ui.nav_prev, { desc = 'Harpoon: Nav Pref' })
-for i = 1, 9 do
-  vim.keymap.set("n", "<leader>h" .. i, function()
-    harpoon_ui.nav_file(i)
-  end, { desc = "Harpoon jump to mark " .. i })
-end
 
 -- dap
 local dap = require("dap")
