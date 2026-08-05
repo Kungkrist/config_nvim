@@ -1,5 +1,6 @@
 return {
   {
+    -- Display and generate colors
     "uga-rosa/ccc.nvim",
     opts = {
       highlighter = {
@@ -7,27 +8,6 @@ return {
         lsp = true,
       },
     },
-  },
-  {
-    "nvim-telekasten/telekasten.nvim",
-    config = function()
-      local function get_notes_dir()
-        local cwd = vim.loop.cwd()
-
-        -- look for a project-specific marker
-        if vim.fn.filereadable(cwd .. "/.notes") == 1 then
-          return cwd
-        end
-
-        -- fallback (global notes)
-        return vim.fn.expand("~/notes")
-      end
-      require("telekasten").setup({
-        home = get_notes_dir(),
-        take_over_my_home = false,
-        auto_set_filetype = false,
-      })
-    end
   },
   {
     "folke/zen-mode.nvim",
@@ -38,6 +18,7 @@ return {
     }
   },
   {
+    -- A blazing fast and easy to configure Neovim statusline written in Lua.
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
@@ -45,6 +26,7 @@ return {
     end
   },
   {
+    -- todo-comments is a lua plugin for Neovim >= 0.8.0 to highlight and search for todo comments like TODO, HACK, BUG in your code base.
     "folke/todo-comments.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
     opts = {}
@@ -56,18 +38,19 @@ return {
     dependencies = { "plenary.nvim" }
   },
   {
-    -- Closes some gaps that exist between mason.nvim and nvim-dap
-    "jay-babu/mason-nvim-dap.nvim",
-    dependencies = { "williamboman/mason.nvim", "mfussenegger/nvim-dap" }
-  },
-  { 'tpope/vim-fugitive' }, -- Git plugin
-  { "mbbill/undotree" },    -- Inspect undo history of files
+    -- Fugitive is the premier Vim plugin for Git. Or maybe it's the premier Git plugin for Vim? Either way, it's "so awesome, it should be illegal". That's why it's called Fugitive.
+    'tpope/vim-fugitive' }, -- Git plugin
   {
+    -- Undotree visualizes the undo history and makes it easy to browse and switch between different undo branches.
+    "mbbill/undotree" }, -- Inspect undo history of files
+  {
+    -- Improve viewing Markdown in Neovim
     'MeanderingProgrammer/render-markdown.nvim',
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     opts = {},
   },
   {
+    -- Find And Replace plugin for neovim
     'MagicDuck/grug-far.nvim',
     -- Note (lazy loading): grug-far.lua defers all it's requires so it's lazy by default
     -- additional lazy config to defer loading is not really needed...
@@ -81,6 +64,7 @@ return {
     end
   },
   {
+    -- A sidebar with a tree-like outline of symbols from your code, powered by LSP.
     "hedyhli/outline.nvim",
     lazy = true,
     cmd = { "Outline", "OutlineOpen" },

@@ -67,7 +67,6 @@ vim.keymap.set("n", "<leader>cscp", ":CMakeSelectConfigurePreset<CR>", { desc = 
 
 -- telescope / search
 local builtin = require('telescope.builtin')
-local telescope = require('telescope')
 local actions = require("telescope.actions")
 local action_state = require("telescope.actions.state")
 
@@ -168,18 +167,3 @@ vim.keymap.set('t', '<A-Esc>', '<C-\\><C-n>', { desc = 'Terminal: Exit terminal 
 
 -- Zen mode
 vim.keymap.set("n", "<leader>z", ":ZenMode<CR>", { desc = "ZenMode: Toggle" })
-
---  Telekaster (note manager)
-local telekasten = require("telekasten")
-vim.keymap.set("n", "<leader>ni", function()
-  telekasten.insert_link()
-end, { desc = "Telekaster: Follow link (Goto destination)" })
-vim.keymap.set("n", "<leader>ngd", function()
-  telekasten.follow_link()
-end, { desc = "Telekaster: Follow link (Goto destination)" })
-vim.keymap.set("n", "<leader>nf", function()
-  telekasten.search_notes()
-end, { desc = "Telekaster: Search in notes" })
-vim.keymap.set("n", "<leader>nrn", function()
-  telekasten.rename_note()
-end, { desc = "Telekaster: Rename note" })

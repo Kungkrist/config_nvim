@@ -4,7 +4,6 @@ return {
   require("plugins.dap"),
   require("plugins.dapui"),
   require("plugins.lsp"),
-  require("plugins.mason"),
   require("plugins.nvim_lint"),
   require("plugins.one_liners"),
   require("plugins.telescope"),
