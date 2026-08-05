@@ -113,7 +113,7 @@
     "yazi.nvim": {
       "rev": "6053914dded07ea4c9bcf67a9bbcfd385c256591",
       "src": "https://github.com/mikavilpas/yazi.nvim",
-      "version": "'6053914dded07ea4c9bcf67a9bbcfd385c256591'"
+      "version": "'8d6c25cb4e7c5702d6cd5a263cb36129fa78aa4c'"
     },
     "zen-mode.nvim": {
       "rev": "8564ce6d29ec7554eb9df578efa882d33b3c23a7",
