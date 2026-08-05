@@ -1,25 +1,16 @@
 return {
   {
-    "williamboman/mason.nvim",
-    config = function()
-      require("mason").setup()
-    end,
-  },
-
-  {
+    -- A completion engine plugin for neovim written in Lua. Completion sources are installed from external repositories and "sourced".
     "hrsh7th/nvim-cmp",
   },
   {
+    -- nvim-cmp source for neovim's built-in language server client.
     "hrsh7th/cmp-nvim-lsp",
   },
   {
-    "L3MON4D3/LuaSnip",
-  },
-
-  {
+    -- nvim-lspconfig is a collection of LSP server configurations for the Nvim LSP client.
     "neovim/nvim-lspconfig",
     config = function()
-
       vim.api.nvim_create_autocmd('FileType', {
         pattern = 'fish',
         callback = function()
