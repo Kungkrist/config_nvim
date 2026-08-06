@@ -14,7 +14,7 @@ end, { nargs = "?" })
 
 vim.api.nvim_create_user_command("SaveSession", function(opts)
   local name = opts.args ~= "" and opts.args or "default"
-  vim.fn.mkdir(M.session_dir, "p")  -- only runs when saving
+  vim.fn.mkdir(M.session_dir, "p") -- only runs when saving
   local path = M.session_dir .. "/" .. name .. ".vim"
   vim.cmd("mksession! " .. path)
   print("Saved session as: " .. name)
@@ -42,5 +42,13 @@ vim.api.nvim_create_user_command("ListSessions", function()
     end
   end
 end, {})
+
+vim.api.nvim_create_autocmd("SessionLoadPost", {
+  callback = function()
+    vim.schedule(function()
+      vim.cmd("filetype detect")
+    end)
+  end,
+})
 
 return M
