@@ -16,7 +16,11 @@ ccc.setup({
 zen_mode.setup({})
 lualine.setup({})
 todo_comments.setup({})
-render_markdown.setup({})
+render_markdown.setup({
+  html = { enabled = false },
+  latex = { enabled = false },
+  yaml = { enabled = false },
+})
 grug_far.setup({})
 outline.setup({
   outline_window = {
