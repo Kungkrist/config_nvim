@@ -1,6 +1,5 @@
 require("plugins.themes")
 require("plugins.cmake_tools")
-require("plugins.cmp")
 require("plugins.dap")
 require("plugins.dapui")
 require("plugins.lsp")

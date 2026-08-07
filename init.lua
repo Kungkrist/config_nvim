@@ -19,11 +19,9 @@ vim.pack.add({
     version = '22859d754b5de738cfe9945e0910729f63deefd0',
   },
   {
-    -- nvim-cmp source for neovim's built-in language server client. 1.5k stars
-    -- WARN: Havn't been updated for almost a year (not maintained antmore?)
-    -- TODO: Change to blinc.cmp or similar
-    src = 'https://github.com/hrsh7th/cmp-nvim-lsp',
-    version = 'cbc7b02bb99fae35cb42f514762b89b5126651ef',
+    -- blink.cmp is a completion plugin with support for LSPs, cmdline, signature help, and snippets. 6.5k stars
+    src = 'https://github.com/saghen/blink.cmp',
+    version = '78336bc89ee5365633bcf754d93df01678b5c08f', -- v1.10.2
   },
   {
     -- Find And Replace plugin for neovim. 2.0k stars

@@ -1,5 +1,10 @@
 {
   "plugins": {
+    "blink.cmp": {
+      "rev": "78336bc89ee5365633bcf754d93df01678b5c08f",
+      "src": "https://github.com/saghen/blink.cmp",
+      "version": "'78336bc89ee5365633bcf754d93df01678b5c08f'"
+    },
     "ccc.nvim": {
       "rev": "9d1a256e006decc574789dfc7d628ca11644d4c2",
       "src": "https://github.com/uga-rosa/ccc.nvim",
@@ -9,11 +14,6 @@
       "rev": "22859d754b5de738cfe9945e0910729f63deefd0",
       "src": "https://github.com/Civitasv/cmake-tools.nvim",
       "version": "'22859d754b5de738cfe9945e0910729f63deefd0'"
-    },
-    "cmp-nvim-lsp": {
-      "rev": "cbc7b02bb99fae35cb42f514762b89b5126651ef",
-      "src": "https://github.com/hrsh7th/cmp-nvim-lsp",
-      "version": "'cbc7b02bb99fae35cb42f514762b89b5126651ef'"
     },
     "grug-far.nvim": {
       "rev": "6e05398cf6cad05b3fb46569db96b1ccfcbbd402",

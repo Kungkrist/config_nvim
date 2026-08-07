@@ -167,3 +167,9 @@ vim.keymap.set('t', '<A-Esc>', '<C-\\><C-n>', { desc = 'Terminal: Exit terminal 
 
 -- Zen mode
 vim.keymap.set("n", "<leader>z", ":ZenMode<CR>", { desc = "ZenMode: Toggle" })
+
+
+-- Blink cmp
+vim.keymap.set("i", "<C-Space>", function()
+  require("blink.cmp").show()
+end)

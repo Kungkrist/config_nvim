@@ -1,11 +1,59 @@
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "fish",
-  callback = function()
-    vim.lsp.start({
-      name = "fish-lsp",
-      cmd = { "fish-lsp", "start" },
-    })
-  end,
+-- CMP Setup 
+require("blink.cmp").setup({
+  keymap = {
+    preset = "none",
+
+    ["<Tab>"] = {
+      "select_and_accept",
+      "snippet_forward",
+      "fallback",
+    },
+
+    ["<S-Tab>"] = {
+      "snippet_backward",
+      "fallback",
+    },
+
+    ["<C-j>"] = {
+      "select_next",
+      "fallback",
+    },
+
+    ["<C-k>"] = {
+      "select_prev",
+      "fallback",
+    },
+
+    ["<C-l>"] = {
+      "accept",
+      "fallback",
+    },
+
+    ["<C-h>"] = {
+      "hide",
+      "fallback",
+    },
+  },
+})
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
+capabilities = vim.tbl_deep_extend("force", capabilities, {
+  textDocument = {
+    foldingRange = {
+      dynamicRegistration = false,
+      lineFoldingOnly = true,
+    },
+  },
+})
+
+-- LSP Setup
+vim.lsp.config("*", {
+  capabilities = capabilities,
+})
+
+vim.lsp.config("fish-lsp", {
+  cmd = { "fish-lsp", "start" },
+  filetypes = { "fish" },
 })
 
 vim.lsp.config("lua_ls", {
@@ -35,8 +83,11 @@ vim.lsp.config("actionlint", {
   filetypes = { "yaml" },
 })
 
-vim.lsp.enable("lua_ls")
-vim.lsp.enable("clangd")
-vim.lsp.enable("cmake")
-vim.lsp.enable("jsonls")
-vim.lsp.enable("actionlint")
+vim.lsp.enable({
+  "lua_ls",
+  "clangd",
+  "cmake",
+  "jsonls",
+  "actionlint",
+  "fish-lsp",
+})
