@@ -1,16 +1,27 @@
--- CMP Setup 
+-- CMP Setup
 require("blink.cmp").setup({
   keymap = {
     preset = "none",
 
+    ["<CR>"] = {
+      "accept",
+      "fallback",
+    },
+
     ["<Tab>"] = {
-      "select_and_accept",
+      "select_next",
       "snippet_forward",
       "fallback",
     },
 
     ["<S-Tab>"] = {
+      "select_prev",
       "snippet_backward",
+      "fallback",
+    },
+
+    ["<C-h>"] = {
+      "hide",
       "fallback",
     },
 
@@ -28,10 +39,11 @@ require("blink.cmp").setup({
       "accept",
       "fallback",
     },
+  },
 
-    ["<C-h>"] = {
-      "hide",
-      "fallback",
+  completion = {
+    documentation = {
+      auto_show = true,
     },
   },
 })
