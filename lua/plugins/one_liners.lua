@@ -1,21 +1,9 @@
-local ccc = require("ccc")
-local zen_mode = require("zen-mode")
 local lualine = require("lualine")
-local todo_comments = require("todo-comments")
 local render_markdown = require("render-markdown")
 local grug_far = require("grug-far")
 local outline = require("outline")
 
-ccc.setup({
-  highlighter = {
-    auto_enable = true,
-    lsp = true,
-  },
-})
-
-zen_mode.setup({})
 lualine.setup({})
-todo_comments.setup({})
 render_markdown.setup({
   html = { enabled = false },
   latex = { enabled = false },

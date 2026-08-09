@@ -5,11 +5,6 @@
       "src": "https://github.com/saghen/blink.cmp",
       "version": "'78336bc89ee5365633bcf754d93df01678b5c08f'"
     },
-    "ccc.nvim": {
-      "rev": "9d1a256e006decc574789dfc7d628ca11644d4c2",
-      "src": "https://github.com/uga-rosa/ccc.nvim",
-      "version": "'9d1a256e006decc574789dfc7d628ca11644d4c2'"
-    },
     "cmake-tools.nvim": {
       "rev": "22859d754b5de738cfe9945e0910729f63deefd0",
       "src": "https://github.com/Civitasv/cmake-tools.nvim",
@@ -18,17 +13,12 @@
     "grug-far.nvim": {
       "rev": "6e05398cf6cad05b3fb46569db96b1ccfcbbd402",
       "src": "https://github.com/MagicDuck/grug-far.nvim",
-      "version": "'6e05398cf6cad05b3fb46569db96b1ccfcbbd402'"
+      "version": "'5506c2f59dc9ab2ed6c233585412b24d31d51521'"
     },
     "lualine.nvim": {
       "rev": "221ce6b2d999187044529f49da6554a92f740a96",
       "src": "https://github.com/nvim-lualine/lualine.nvim",
       "version": "'221ce6b2d999187044529f49da6554a92f740a96'"
-    },
-    "nvim-cmp": {
-      "rev": "2ffe79f1f021def8dd1fcd81deb16f1bb0d989f3",
-      "src": "https://github.com/hrsh7th/nvim-cmp",
-      "version": "'2ffe79f1f021def8dd1fcd81deb16f1bb0d989f3'"
     },
     "nvim-dap": {
       "rev": "9e848e09a697ee95302a3ef2dd43fd6eb709e570",
@@ -48,7 +38,7 @@
     "nvim-lspconfig": {
       "rev": "43ed3797b266e1ee8d222e491379ad471c9d3146",
       "src": "https://github.com/neovim/nvim-lspconfig",
-      "version": "'43ed3797b266e1ee8d222e491379ad471c9d3146'"
+      "version": "'229b79051b380377664edc4cbd534930154921a1'"
     },
     "nvim-nio": {
       "rev": "edcc181a875301dd21840189aa2f2f9ad69fc172",
@@ -58,7 +48,7 @@
     "nvim-treesitter": {
       "rev": "7b6cc8949f9999c5ed91436cbe24aa5f99c42025",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
-      "version": "'7b6cc8949f9999c5ed91436cbe24aa5f99c42025'"
+      "version": "'4916d6592ede8c07973490d9322f187e07dfefac'"
     },
     "nvim-web-devicons": {
       "rev": "2ae6958df7ced50baac5035cec0c15799eedfbf7",
@@ -78,7 +68,7 @@
     "render-markdown.nvim": {
       "rev": "f422cb5c6855f150e2ddcfaf44e7157b98b34f6a",
       "src": "https://github.com/meanderingprogrammer/render-markdown.nvim",
-      "version": "'f422cb5c6855f150e2ddcfaf44e7157b98b34f6a'"
+      "version": "'e3c18ddd27a853f85a6f513a864cf4f2982b9f26'"
     },
     "solarized-osaka.nvim": {
       "rev": "f675d9a5c58f3b0d6158d665a623f81a62e7bdaf",
@@ -89,11 +79,6 @@
       "rev": "427b576c16792edad01a92b89721d923c19ad60f",
       "src": "https://github.com/nvim-telescope/telescope.nvim",
       "version": "'427b576c16792edad01a92b89721d923c19ad60f'"
-    },
-    "todo-comments.nvim": {
-      "rev": "31e3c38ce9b29781e4422fc0322eb0a21f4e8668",
-      "src": "https://github.com/folke/todo-comments.nvim",
-      "version": "'31e3c38ce9b29781e4422fc0322eb0a21f4e8668'"
     },
     "undotree": {
       "rev": "6fa6b57cda8459e1e4b2ca34df702f55242f4e4d",
@@ -114,11 +99,6 @@
       "rev": "6053914dded07ea4c9bcf67a9bbcfd385c256591",
       "src": "https://github.com/mikavilpas/yazi.nvim",
       "version": "'8d6c25cb4e7c5702d6cd5a263cb36129fa78aa4c'"
-    },
-    "zen-mode.nvim": {
-      "rev": "8564ce6d29ec7554eb9df578efa882d33b3c23a7",
-      "src": "https://github.com/folke/zen-mode.nvim",
-      "version": "'8564ce6d29ec7554eb9df578efa882d33b3c23a7'"
     }
   }
 }
