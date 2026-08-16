@@ -10,6 +10,11 @@
       "src": "https://github.com/Civitasv/cmake-tools.nvim",
       "version": "'22859d754b5de738cfe9945e0910729f63deefd0'"
     },
+    "flash.nvim": {
+      "rev": "b6346946d10d07998efee029fb0f7a593806d0cd",
+      "src": "https://github.com/folke/flash.nvim.git",
+      "version": "'b6346946d10d07998efee029fb0f7a593806d0cd'"
+    },
     "grug-far.nvim": {
       "rev": "6e05398cf6cad05b3fb46569db96b1ccfcbbd402",
       "src": "https://github.com/MagicDuck/grug-far.nvim",
