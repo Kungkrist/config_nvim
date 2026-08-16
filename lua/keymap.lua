@@ -4,6 +4,9 @@ vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>ge", ":Ex<CR>", { desc = "Navigation: Open File explorer" })
 vim.keymap.set("n", "<leader>bd", ":bdelete<CR>", { desc = "Buffer: Delete (bdelete)" })
 
+-- clang LSP swap source/header cpp
+vim.keymap.set("n", "<A-o>", ":LspClangdSwitchSourceHeader<CR>")
+
 -- lsp
 vim.keymap.set("n", "<leader>f", function() vim.lsp.buf.format { async = true } end,
   { desc = "LSP: Format" })
@@ -80,9 +83,9 @@ vim.keymap.set('n', '<leader>tkm', builtin.keymaps, { desc = "Telescope: keymaps
 vim.keymap.set('n', '<leader>tjl', builtin.jumplist, { desc = "Telescope: jumplist" })
 vim.keymap.set('n', '<leader>tfaf', function()
   builtin.find_files({
-    hidden = true,  -- include hidden files
+    hidden = true,    -- include hidden files
     no_ignore = true, -- include gitignored files
-    follow = true,  -- follow symlinks
+    follow = true,    -- follow symlinks
   })
 end, { desc = "Telescope: find files including hidden/gitignored" })
 
