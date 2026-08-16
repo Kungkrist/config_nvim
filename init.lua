@@ -3,6 +3,11 @@
 
 vim.pack.add({
   {
+    -- Fast nagivation inside buffers. 4.2k stars
+    src = 'https://github.com/folke/flash.nvim.git',
+    version = 'b6346946d10d07998efee029fb0f7a593806d0cd', -- Jul 10
+  },
+  {
     -- One of the Solarized-inspired dark theme for Neovim written in Lua. 1.0k stars
     src = 'https://github.com/craftzdog/solarized-osaka.nvim',
     version = 'f675d9a5c58f3b0d6158d665a623f81a62e7bdaf',

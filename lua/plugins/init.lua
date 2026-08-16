@@ -1,3 +1,4 @@
+require("plugins.flash")
 require("plugins.themes")
 require("plugins.cmake_tools")
 require("plugins.dap")
