@@ -12,4 +12,4 @@ local opts = {
 require("solarized-osaka").setup(opts)
 
 vim.cmd.colorscheme("solarized-osaka")
-vim.cmd("hi Normal guibg=#001116 ctermbg=NONE")
+-- vim.cmd("hi Normal guibg=#001116 ctermbg=NONE")
