@@ -95,6 +95,11 @@ vim.lsp.config("actionlint", {
   filetypes = { "yaml" },
 })
 
+vim.lsp.config("harper", {
+  cmd = { "harper-ls", "--stdio" },
+  filetypes = { "markdown" },
+})
+
 vim.lsp.enable({
   "lua_ls",
   "clangd",
@@ -102,4 +107,5 @@ vim.lsp.enable({
   "jsonls",
   "actionlint",
   "fish-lsp",
+  "harper",
 })
